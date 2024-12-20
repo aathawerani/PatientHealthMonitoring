@@ -1,0 +1,52 @@
+unlabeled_raw_about.txt for WISDM_at_v2.0 dataset
+
+See readme.txt for information about the WISDM Lab, rights,
+and other general information.
+
+Associated tasks: classification
+Number of examples: 38,209,772 
+Number of attributes: 6
+Missing attribute values: No 
+
+raw.txt follows this format:
+[user],[activity],[timestamp],[x-acceleration],[y-accel],[z-accel];
+
+This line is a representative example:
+33,Jogging,49105962326000,-0.6946377,12.680544,0.50395286;
+
+Sampling rate:
+20Hz (1 sample every 50ms)
+
+Fields:
+*user
+        nominal 
+
+*activity
+        nominal, {
+                Walking
+                Jogging
+                Sitting
+                Standing
+                Upstairs
+                Downstairs }
+
+*timestamp
+        numeric, unix epoch time in milliseconds
+
+*x-acceleration
+        numeric, floating-point values between -20 .. 20
+                The acceleration in the x direction as measured
+                by the android phone's accelerometer in m/(s^2).
+                The acceleration recorded includes gravitational
+                acceleration toward the center of the Earth, so
+                that when the phone is at rest on a flat surface
+                the vertical axis will register +-10.
+
+*y-accel
+        numeric, see x-acceleration
+
+*z-accel
+        numeric, see x-acceleration
+
+
+

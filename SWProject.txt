@@ -1,0 +1,18 @@
+PREFIX project: <http://www.semanticweb.org/ali.ahmed/ontologies/2015/11/untitled-ontology-5#>
+
+SELECT ?WSN ?Nodes WHERE { ?WSN project:ComposedOf ?Nodes. }
+select ?WSN ?Cluster WHERE { ?WSN project:isFormedOf ?Cluster. }
+select ?Contact ?Cluster where { ?Node project:hasContact ?Contact. ?Cluster project:ComposedOf ?Node.}
+select ?Node ?Measurement ?Process where { ?Node project:measures ?Measurement; project:usedFor ?Process. }
+
+Patient(?P), MaxHR(?P, ?Q), hasContact(?N, ?P), measures(?N, ?Mes), usedFor(?N, ECG), Age(?P, ?Age), HRValue(?Mes, ?measure), lessThan(?y, ?measure), multiply(?x, 0.7, ?Age), subtract(?y, 208, ?x) -> valid(?Mes, false)
+
+Patient(?P), MaxHR(?P, ?Q), Age(?P, ?Age), multiply(?x, 0.7, ?Age), subtract(?y, 208, ?x) -> MaxHRValue(?P, ?y), value(?Q, ?y)
+
+Patient(?P), MaxHR(?P, ?Q), Age(?P, ?Age), multiply(?x, 0.7, ?Age), subtract(?y, 208, ?x), hasContact(?N, ?P), usedFor(?N, ECG), measures(?N, ?Mes), HRValue(?Mes, ?measure), lessThan(?y, ?measure) -> valid(?Mes, false)
+
+select ?Patient ?Quantity ?Age ?Node where { ?Patient project:MaxHR ?Quantity; project:Age ?Age. ?Node hasContact ?Patient; measures ?Mes. ?Mes HRValue ?measure } 
+
+select ?Patient ?Age ?measure where { ?Patient project:MaxHR ?Quantity; project:Age ?Age. ?Node project:hasContact ?Patient; project:measures ?Mes. ?Mes project:HRValue ?measure  }  order by ?Patient
+
+select ?Patient ?Age ?measure where { ?Patient project:MaxHR ?Quantity; project:Age ?Age. ?Node project:hasContact ?Patient; project:measures ?Mes. ?Mes project:HRValue ?measure Filter ( 208 - ( ?Age * 0.7 ) < ?measure  )  }  order by ?Patient
